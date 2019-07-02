@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReelRate.WebUI", "ReelRate.WebUI\ReelRate.WebUI.csproj", "{5F9D937D-7AB9-4B82-89B6-8A38C6C82CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "ReelRate.WebUI\MVC.csproj", "{5F9D937D-7AB9-4B82-89B6-8A38C6C82CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

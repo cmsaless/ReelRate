@@ -48,7 +48,7 @@ footer {
 }
 
 .buffer {
-    margin-top: 125px;
+    margin-top: 50px;
 }
 
 a {
@@ -73,9 +73,6 @@ a {
 }
 
 #welcome_div {
-    border-right: dotted;
-    border-color: gray;
-    border-width: 2px;
 }
 
 #welcome_div, #home_list {
@@ -106,4 +103,35 @@ h2 {
 
 ul {
     align-content: center
+}
+
+#list_preview {
+    padding: 30px;
+    align-content: center;
+    border-style: dashed;
+    border-color: gray;
+    border-width: 2px;
+    border-radius: 10px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+#movie_li {
+    font-size: 20px;
+}
+ 
+#movie_li span {
+    padding-left: 30px;
+    font-size: 20px;
+    float: left;
+}
+
+#ellipses {
+    font-size: 20px;
+}
+
+#view_list {
+    font-size: 20px;
 }

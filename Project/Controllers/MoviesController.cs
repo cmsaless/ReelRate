@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ReelRate.WebUI.Contracts;
-using ReelRate.WebUI.Models;
+using ReelRate.Project.Models;
+using ReelRate.Project.Contracts;
+using ReelRate.Project.Models;
 
-namespace ReelRate.WebUI.Controllers
+namespace ReelRate.Project.Controllers
 {
     public class MoviesController : Controller
     {

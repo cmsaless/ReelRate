@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ReelRate.WebUI.Data;
 
-namespace ReelRate.WebUI.Data.Migrations
+namespace ReelRate.Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190702223237_initial")]
@@ -15,7 +13,7 @@ namespace ReelRate.WebUI.Data.Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
+            #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
@@ -186,7 +184,7 @@ namespace ReelRate.WebUI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ReelRate.WebUI.Models.Movie", b =>
+            modelBuilder.Entity("ReelRate.Project.Models.Movie", b =>
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();

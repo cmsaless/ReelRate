@@ -1,7 +1,8 @@
-﻿using ReelRate.WebUI.Models;
+﻿using ReelRate.Project.Models;
+using ReelRate.Project.Models;
 using System.Linq;
 
-namespace ReelRate.WebUI.Contracts
+namespace ReelRate.Project.Contracts
 {
     public interface IRepository<T> where T : BaseEntity
     {

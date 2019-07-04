@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ReelRate.Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ReelRate.WebUI.Models
+namespace ReelRate.Project.Models
 {
     public class Movie : BaseEntity
     {

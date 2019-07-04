@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ReelRate.WebUI.Models;
+using ReelRate.Project.Models;
 
-namespace ReelRate.WebUI.Controllers
+namespace ReelRate.Project.Controllers
 {
     public class HomeController : Controller
     {

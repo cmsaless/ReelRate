@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReelRate.WebUI.Models;
-using ReelRate.WebUI.Contracts;
-using ReelRate.WebUI.Data;
+using ReelRate.Project.Data;
+using ReelRate.Project.Contracts;
+using ReelRate.Project.Models;
 
-namespace ReelRate.WebUI
+namespace ReelRate.Project
 {
     public class Startup
     {

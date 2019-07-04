@@ -14,17 +14,17 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\Project\Views\_ViewImports.cshtml"
-using ReelRate.WebUI;
+using ReelRate.Project;
 
 #line default
 #line hidden
 #line 2 "C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\Project\Views\_ViewImports.cshtml"
-using ReelRate.WebUI.Models;
+using ReelRate.Project.Models;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f5d2cd22c6fb065a0804f69d916fd2854a84cd85", @"/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5719661b15d6c8876becf708f1730f421c2c0bee", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"70b231f84588d384baf4cfaa0421c2fca955c09d", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ReelRate.WebUI.Data.Migrations
+namespace ReelRate.Project.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

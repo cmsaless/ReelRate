@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ReelRate.WebUI.Data
+namespace ReelRate.Project.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -13,6 +10,6 @@ namespace ReelRate.WebUI.Data
         {
         }
 
-        public DbSet<ReelRate.WebUI.Models.Movie> Movies { get; set; }
+        public DbSet<ReelRate.Project.Models.Movie> Movies { get; set; }
     }
 }

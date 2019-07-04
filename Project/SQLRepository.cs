@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ReelRate.WebUI.Contracts;
-using ReelRate.WebUI.Data;
-using ReelRate.WebUI.Models;
+using ReelRate.Project.Contracts;
+using ReelRate.Project.Data;
+using ReelRate.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReelRate.WebUI
+namespace ReelRate.Project
 {
     public class SQLRepository<T> : IRepository<T> where T : BaseEntity
     {

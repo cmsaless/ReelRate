@@ -1,6 +1,6 @@
 using System;
 
-namespace ReelRate.WebUI.Models
+namespace ReelRate.Project.Models
 {
     public class ErrorViewModel
     {

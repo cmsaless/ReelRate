@@ -53,8 +53,8 @@ footer {
 
 a {
     color: #6098eb
-
 }
+
     a:hover, a:focus {
         color: white;
         text-decoration: none;
@@ -85,7 +85,7 @@ li span {
     left: 0;
 }
 
-.login {
+.form-box {
     align-content: center;
     float: none;
     margin: 0 auto;
@@ -124,12 +124,12 @@ ul {
 #movie_li {
     font-size: 20px;
 }
- 
-#movie_li span {
-    padding-left: 30px;
-    font-size: 20px;
-    float: left;
-}
+
+    #movie_li span {
+        padding-left: 30px;
+        font-size: 20px;
+        float: left;
+    }
 
 #ellipses {
     font-size: 20px;

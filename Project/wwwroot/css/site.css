@@ -85,14 +85,17 @@ li span {
     left: 0;
 }
 
+.login {
+    align-content: center;
+    float: none;
+    margin: 0 auto;
+}
+
 #box {
     border-style: dotted;
     border-color: gray;
     border-width: 2px;
     border-radius: 10px;
-}
-
-.row {
     position: fixed;
     bottom: 100px;
 }

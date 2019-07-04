@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ReelRate.WebUI</title>
+    <title>@ViewData["Title"] - ReelRate</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -28,12 +29,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ReelRate.WebUI</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ReelRate</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="Home Button" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Movies" asp-action="Index">About</a></li>
+                    <li><a asp-area="Movies Button" asp-controller="Movies" asp-action="Index">Movies</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -43,8 +43,8 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
+        <div class="buffer"></div>
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - ReelRate</p>
         </footer>
@@ -73,4 +73,5 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>

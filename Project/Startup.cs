@@ -41,13 +41,12 @@ namespace ReelRate.Project
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             /******* Dependency Injections *******/
-            services.AddScoped < IRepository<Movie>, SQLRepository<Movie> >();
+            services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
             /*************************************/
-
 
             /******* Database SetUp *******/
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+                        options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
             /*******************************/
 
         }

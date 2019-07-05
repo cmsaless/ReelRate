@@ -10,6 +10,11 @@ namespace ReelRate.Project.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<ReelRate.Project.Models.Movie> Movies { get; set; }
     }
 }

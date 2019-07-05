@@ -40,11 +40,6 @@ namespace Project.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(20, MinimumLength = 4)]
-            [Display(Name = "Username")]
-            public string Username { get; set; }
-
-            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }

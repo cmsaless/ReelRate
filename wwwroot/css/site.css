@@ -8,12 +8,18 @@ for details on configuring this project to bundle and minify static web assets. 
     px  - rarely if at all 
 */
 
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    background-color: snow;
-    color: black;
+.top-buffer {
+    margin-top: 6em;
 }
+
+footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: gray;
+}
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -46,22 +52,12 @@ body {
     }
 }
 
-footer {
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: gray;
-}
 
 .footer-hr {
     color: gray;
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(128,128,128, 0), rgba(128,128,128, 0.33), rgba(128,128,128, 0));
-}
-
-.buffer {
-    margin-top: 50px;
 }
 
 #logout-button {

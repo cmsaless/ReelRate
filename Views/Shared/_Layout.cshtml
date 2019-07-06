@@ -35,11 +35,10 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        <div class="buffer"></div>
+    <div class="container body-content top-buffer">
         @RenderBody()
         <footer>
-            <hr class="footer-hr"/>
+            <hr class="footer-hr" />
             <p>&copy; @DateTime.Now.Year - ReelRate</p>
         </footer>
     </div>

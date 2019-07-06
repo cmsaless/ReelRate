@@ -59,25 +59,25 @@ footer {
 }
 
 #logout-button {
-    color: #0a62f0;
+    color: #337ab7;
     line-height: 20px;
     font-weight: bold;
     font-size: 16px;
 }
 
     a:hover, a:focus, #logout-button:hover, #logout-button:focus {
-        color: #6098eb;
+        color: white;
         text-decoration: none;
     }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #0a62f0;
+    color: #337ab7;
     font-weight: bold;
     font-size: 16px;
 }
 
 .navbar-inverse .navbar-brand {
-    color: #0a62f0;
+    color: #337ab7;
     font-weight: bold;
     font-size: 20px;
 }
@@ -177,3 +177,11 @@ ul {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+a {
+    color:#0a62f0
+}
+
+    a:hover {
+        color: #337ab7
+    }

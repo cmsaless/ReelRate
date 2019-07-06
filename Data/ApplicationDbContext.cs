@@ -12,6 +12,7 @@ namespace MVC.Data
         }
 
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieListItem> MovieListItem { get; set; }
         public DbSet<MovieList> MovieList { get; set; }
     }
 }

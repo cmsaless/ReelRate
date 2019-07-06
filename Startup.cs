@@ -37,6 +37,7 @@ namespace MVC
 
             services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
             services.AddScoped<IRepository<MovieList>, SQLRepository<MovieList>>();
+            services.AddScoped<IRepository<MovieListItem>, SQLRepository<MovieListItem>>();
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,0 +1,56 @@
+﻿@model MVC.Models.AddMovieViewModel
+
+@{
+    ViewData["Title"] = "AddMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Movie</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].TMDB_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Poster)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Movies)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TMDB_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poster)
+            </td>
+            <td>
+                @using (Html.BeginForm("Add", "MovieLists", FormMethod.Post, new {encType = "multipart/form-data"}))
+                {
+                    <input type="hidden" name="listID" value="@Model.MovieList.ID">
+                    <input type="hidden" name="movieID" value="@item.ID">
+                    <input type="submit" class="btn btn-primary" value="Add" />
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

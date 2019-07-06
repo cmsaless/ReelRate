@@ -1,0 +1,16 @@
+﻿.profile-pic {
+    border: double;
+    border-color: black;
+    float: left;
+    height: 300px;
+    width: 300px;
+}
+
+.profile-name {
+    margin-left: 50px;
+    float: left;
+}
+
+.change_pic {
+    font-size: 12px;
+}

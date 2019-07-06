@@ -1,16 +1,9 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
-for details on configuring this project to bundle and minify static web assets. */
-
-/* 
+﻿/* 
     %   - for widths
     rem - for font-size
     em  - for padding/margin
     px  - rarely if at all 
 */
-
-.top-buffer {
-    margin-top: 6em;
-}
 
 footer {
     bottom: 0;
@@ -19,176 +12,58 @@ footer {
     text-align: center;
     color: gray;
 }
-
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    footer hr {
+        color: gray;
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(128,128,128, 0), rgba(128,128,128, 0.33), rgba(128,128,128, 0));
     }
-}
 
 
-.footer-hr {
-    color: gray;
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(128,128,128, 0), rgba(128,128,128, 0.33), rgba(128,128,128, 0));
-}
-
-#logout-button {
-    color: #337ab7;
-    line-height: 20px;
+a {
     font-weight: bold;
-    font-size: 16px;
 }
+    a:hover, a:focus {
+        color: #00c;
+        text-decoration: none;
+    }
+    a:active {
+        color: #054c87
+    }
 
-    a:hover, a:focus, #logout-button:hover, #logout-button:focus {
+
+.navbar-inverse .navbar-brand {
+    font-size: 3rem;
+}
+.navbar-inverse .navbar-nav > li > a {
+    font-size: 2rem;
+}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #3ba4ff;
+    font-weight: bold;
+}
+    .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover {
         color: white;
         text-decoration: none;
     }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #337ab7;
-    font-weight: bold;
-    font-size: 16px;
-}
 
-.navbar-inverse .navbar-brand {
-    color: #337ab7;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.content-side-div {
-    text-align: center;
-    align-content: center
-}
-
-
-.form-box {
+/*.form-box {
     align-content: center;
     float: none;
     margin: 0 auto;
-}
-
-.box {
-    border: dotted;
-    border-color: gray;
-    border-radius: 2em;
-}
-
-h2 {
-    text-align: center;
-}
-
-ul {
-    align-content: center
-}
-
-
-.movie_li, .ellipses {
-    margin-top: .5em;
-    margin-bottom: .5em;
-    margin-left: 1em;
-    margin-right: 1em;
-    clear: both;
-    text-align: left;
-    font-size: 2rem;
-}
-
-.ellipses {
-    font-weight: bold;
-    list-style-type: none;
-}
-/*
-
-    #movie_li span {
-        padding-left: 30px;
-        font-size: 20px;
-        float: left;
-    }
-    */
-
-
-#view_list {
-    font-size: 2.5rem;
-}
-
-.details {
-    margin-top: 5em;
-    margin-bottom: 5em;
-}
-
-.center-div {
-    position: relative;
-    margin: 0 auto;
-    float: none;
-}
-
-.profile-pic {
-    border: double;
-    border-color: black;
-    float: left;
-    height: 300px;
-    width: 300px;
-}
-
-.profile-name {
-    margin-left: 50px;
-    float: left;
-}
-
-.change_pic {
-    font-size: 12px;
-}
+}*/
 
 .hr_less_margin {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-a {
-    color: #337ab7;
-    font-weight: bold;
+.body-content {
+    padding-left: 0em;
+    padding-right: 0em;
 }
 
-    a:hover {
-        color: black;
-    }
-
-ol {
-    width: 80%;
-    margin: 0 auto;
-    padding-top: 3em;
-    padding-bottom: 3em;
-}
-
-.movie_list {
-    padding-left: 7em;
-    padding-right: 7em;
+.top-buffer {
+    margin-top: 6em;
 }

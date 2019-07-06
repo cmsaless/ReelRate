@@ -11,12 +11,11 @@
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link" id="logout-button">Logout</button>
             </li>
         </ul>
     </form>
-}
-else
+} else
 {
     <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>

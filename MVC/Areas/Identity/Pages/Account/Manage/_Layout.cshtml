@@ -1,21 +1,40 @@
-﻿@{ 
+﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Manage your account</h2>
+<div class="row">
+    <div class="col-md-3">
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+        <div class="row">
+            <img class="profile-pic" src="~/images/me.jpg" />
+            <a href="#" class="change_pic">Change Profile Pic</a>
+            <hr class="hr_less_margin" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+        <div class="row" style="text-align:left">
+            <p style="font-size:24px">@User.Identity.Name</p>
         </div>
+
+    </div>
+    <div class="col-md-9">
+        @RenderBody()
     </div>
 </div>
+
+<!-- <div class="row">
+    <div class="col-md-2">
+        <h3 style="float:left">Profile Page</h3>
+    </div>
+</div>
+
+<div col-md-12>
+    <div class="row">
+        <!-- <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+<div class="col-md-9">
+</div>
+    </div>
+</div> -->
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

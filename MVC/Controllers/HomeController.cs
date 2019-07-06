@@ -15,6 +15,11 @@ namespace MVC.Controllers
             return View();
         }
 
+        public IActionResult Out()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

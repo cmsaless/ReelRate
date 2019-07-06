@@ -47,15 +47,24 @@ footer {
     color: gray;
 }
 
+.footer-hr {
+    color: gray;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(128,128,128, 0), rgba(128,128,128, 0.33), rgba(128,128,128, 0));
+}
+
 .buffer {
     margin-top: 50px;
 }
 
-a {
-    color: #6098eb
+a, #logout-button {
+    color: #6098eb;
+    line-height: 20px;
+    font-size: 16px;
 }
 
-    a:hover, a:focus {
+    a:hover, a:focus, #logout-button:hover, #logout-button:focus {
         color: white;
         text-decoration: none;
     }
@@ -72,10 +81,7 @@ a {
     font-weight: bold;
 }
 
-#welcome_div {
-}
-
-#welcome_div, #home_list {
+.content-side-div {
     text-align: center;
     align-content: center
 }
@@ -137,4 +143,37 @@ ul {
 
 #view_list {
     font-size: 20px;
+}
+
+.details {
+    margin-top: 80px;
+}
+
+.center-div {
+    position: relative;
+    margin: 0 auto;
+    float: none;
+}
+
+.profile-pic {
+    border:double;
+    border-color: black;
+    float: left;
+    height: 300px;
+    width: 300px;
+}
+
+.profile-name {
+    margin-left: 50px;
+    float: left;
+
+}
+
+.change_pic {
+    font-size: 12px;
+}
+
+.hr_less_margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

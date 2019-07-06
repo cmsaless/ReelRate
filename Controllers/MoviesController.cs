@@ -27,5 +27,19 @@ namespace MVC.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Create(Movie movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(movie);
+            }
+
+            _context.Insert(movie);
+            _context.Commit();
+
+            return RedirectToAction("Index");
+        }
     }
 }

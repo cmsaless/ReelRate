@@ -1,5 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
+
+/* 
+    %   - for widths
+    rem - for font-size
+    em  - for padding/margin
+    px  - rarely if at all 
+*/
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -39,8 +47,6 @@ body {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
     text-align: center;
@@ -87,10 +93,6 @@ footer {
     align-content: center
 }
 
-li span {
-    position: relative;
-    left: 0;
-}
 
 .form-box {
     align-content: center;
@@ -98,13 +100,10 @@ li span {
     margin: 0 auto;
 }
 
-#box {
-    border-style: dotted;
+.box {
+    border: dotted;
     border-color: gray;
-    border-width: 2px;
-    border-radius: 10px;
-    position: fixed;
-    bottom: 100px;
+    border-radius: 2em;
 }
 
 h2 {
@@ -115,39 +114,38 @@ ul {
     align-content: center
 }
 
-#list_preview {
-    padding: 30px;
-    align-content: center;
-    border-style: dashed;
-    border-color: gray;
-    border-width: 2px;
-    border-radius: 10px;
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
+
+.movie_li, .ellipses {
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    clear: both;
+    text-align: left;
+    font-size: 2rem;
 }
 
-#movie_li {
-    font-size: 20px;
+.ellipses {
+    font-weight: bold;
+    list-style-type: none;
 }
+/*
 
     #movie_li span {
         padding-left: 30px;
         font-size: 20px;
         float: left;
     }
+    */
 
-#ellipses {
-    font-size: 20px;
-}
 
 #view_list {
-    font-size: 20px;
+    font-size: 2.5rem;
 }
 
 .details {
-    margin-top: 80px;
+    margin-top: 5em;
+    margin-bottom: 5em;
 }
 
 .center-div {
@@ -186,3 +184,15 @@ a {
     a:hover {
         color: black;
     }
+
+ol {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.movie_list {
+    padding-left: 7em;
+    padding-right: 7em;
+}

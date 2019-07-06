@@ -1,9 +1,8 @@
 ﻿.profile-pic {
-    border: double;
-    border-color: black;
-    float: left;
-    height: 300px;
-    width: 300px;
+    border: black;
+    border-style: groove;
+    border-width: thin;
+    width: 100%;
 }
 
 .profile-name {

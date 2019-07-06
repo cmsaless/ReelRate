@@ -57,3 +57,10 @@ a {
 .top-buffer {
     margin-top: 6em;
 }
+
+
+#icon {
+    height:40px;
+    width:40px;
+    border:none;
+}

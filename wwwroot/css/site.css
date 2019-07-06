@@ -58,27 +58,28 @@ footer {
     margin-top: 50px;
 }
 
-a, #logout-button {
+#logout-button {
     color: #0a62f0;
     line-height: 20px;
+    font-weight: bold;
     font-size: 16px;
 }
 
     a:hover, a:focus, #logout-button:hover, #logout-button:focus {
-        color: white;
+        color: #6098eb;
         text-decoration: none;
     }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #6098eb;
-    font-weight: normal;
+    color: #0a62f0;
+    font-weight: bold;
     font-size: 16px;
 }
 
 .navbar-inverse .navbar-brand {
-    color: #6098eb;
-    font-size: 20px;
+    color: #0a62f0;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .content-side-div {
@@ -156,7 +157,7 @@ ul {
 }
 
 .profile-pic {
-    border:double;
+    border: double;
     border-color: black;
     float: left;
     height: 300px;
@@ -166,7 +167,6 @@ ul {
 .profile-name {
     margin-left: 50px;
     float: left;
-
 }
 
 .change_pic {

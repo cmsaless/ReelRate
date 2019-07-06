@@ -35,6 +35,9 @@ a {
         color: #054c87
     }
 
+.table > thead > tr > th {
+    padding: 0;
+}
 
 .navbar-inverse .navbar-brand {
     font-size: 3rem;

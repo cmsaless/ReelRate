@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
 
@@ -15,5 +12,6 @@ namespace MVC.Data
         }
 
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieList> MovieList { get; set; }
     }
 }

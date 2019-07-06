@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Contracts;
 using MVC.Models;
@@ -39,6 +37,20 @@ namespace MVC.Controllers
             _context.Insert(movie);
             _context.Commit();
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(string ID)
+        {
+            var movie = _context.Find(ID);
+            return View(movie);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult ConfirmDelete(string ID)
+        {
+            _context.Delete(ID);
+            _context.Commit();
             return RedirectToAction("Index");
         }
     }

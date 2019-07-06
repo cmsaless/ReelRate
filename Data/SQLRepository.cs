@@ -30,6 +30,7 @@ namespace MVC.Data
         public void Delete(string ID)
         {
             var t = Find(ID);
+
             if (context.Entry(t).State == EntityState.Detached)
             {
                 dbSet.Attach(t);

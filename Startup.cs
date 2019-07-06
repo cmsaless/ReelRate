@@ -36,6 +36,7 @@ namespace MVC
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
+            services.AddScoped<IRepository<MovieList>, SQLRepository<MovieList>>();
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

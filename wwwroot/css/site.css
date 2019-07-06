@@ -5,6 +5,10 @@
     px  - rarely if at all 
 */
 
+body, html {
+    overflow-x: hidden
+}
+
 footer {
     bottom: 0;
     left: 0;

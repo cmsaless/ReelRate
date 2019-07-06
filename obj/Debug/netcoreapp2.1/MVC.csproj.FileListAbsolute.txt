@@ -134,3 +134,4 @@ C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\MVC.
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\MVC.dll
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\MVC.pdb
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\MVC.csproj.CopyComplete
+C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razor\Views\Movies\Index.g.cshtml.cs

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MVC.Contracts;
+using MVC.Models;
 
 namespace MVC
 {
@@ -32,7 +34,9 @@ namespace MVC
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //Configuration.GetConnectionString("AzureConnection")));
+
+            services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

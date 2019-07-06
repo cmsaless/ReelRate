@@ -2,22 +2,26 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="~/css/manage.css" />
+
 <div class="row">
-    <div class="col-md-3">
 
-        <div class="row">
-            <img class="profile-pic" src="~/images/default_pro_pic.png" />
-            <a href="#" class="change_pic">Change Profile Pic</a>
-            <hr class="hr_less_margin" />
-        </div>
-        <div class="row" style="text-align:left">
-            <p style="font-size:24px">@User.Identity.Name</p>
-        </div>
+    <div class="col">
+        <h1 id="profile-header">@User.Identity.Name</h1>
+    </div>
+    
+</div>
 
+<div class="row">
+    <div class="col">
+        <button class="btn btn-default">Settings</button>
     </div>
-    <div class="col-md-9">
-        @RenderBody()
-    </div>
+</div>
+
+<hr class="hr_less_margin" />
+
+<div class="row">
+    @RenderBody()
 </div>
 
 <!-- <div class="row">

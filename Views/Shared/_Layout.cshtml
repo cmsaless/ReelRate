@@ -28,12 +28,15 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@ViewData["Title"]</a>
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Movies", "Index", "Movies", null, null)</li>
+                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
+    <!-- <partial name="_CookieConsentPartial" /> -->
 
     <div class="container body-content top-buffer">
         @RenderBody()

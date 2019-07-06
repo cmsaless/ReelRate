@@ -14,3 +14,8 @@
 .change_pic {
     font-size: 12px;
 }
+
+.hr_less_margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

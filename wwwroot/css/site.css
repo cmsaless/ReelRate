@@ -35,34 +35,24 @@ a {
 .navbar-inverse .navbar-brand {
     font-size: 3rem;
 }
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a, .navbar-btn {
     font-size: 2rem;
 }
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
     color: #3ba4ff;
     font-weight: bold;
 }
-    .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover {
+    .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover, navbar-btn:hover {
         color: white;
         text-decoration: none;
     }
 
 
-/*.form-box {
-    align-content: center;
-    float: none;
-    margin: 0 auto;
-}*/
-
-.hr_less_margin {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .body-content {
     padding-left: 0em;
     padding-right: 0em;
 }
+
 
 .top-buffer {
     margin-top: 6em;

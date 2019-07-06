@@ -73,7 +73,7 @@ using MVC.Areas.Identity.Pages.Account.Manage;
             WriteLiteral("\r\n<div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n\r\n        <div class=\"row\">\r\n            ");
             EndContext();
             BeginContext(143, 62, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c36f061dd3b840839114c3aea1636ec6", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "95fc907a5e5e4d13a4aab99ed3f25824", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

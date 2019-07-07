@@ -1,4 +1,4 @@
-﻿@model MVC.Models.MovieList
+﻿@model MVC.Models.MovieListViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -8,46 +8,31 @@
 <h2>Details</h2>
 
 <div>
-    <h4>MovieList</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
+    <h4>@Model.List.Name</h4>
     <hr />
     <p>
-        @Html.ActionLink("Add Movies", "AddMovie", "MovieLists", new { ID = @Model.ID }, null)
+        @Html.ActionLink("Add Movies", "Add", "MovieLists", new { ID = @Model.List.ID }, null)
     </p>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].TMDB_ID)
+                    @Html.DisplayNameFor(dummy => Model.Movies[0].TMDB_ID)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Title)
+                    @Html.DisplayNameFor(dummy => Model.Movies[0].Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Year)
+                    @Html.DisplayNameFor(dummy => Model.Movies[0].Year)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(dummy => Model.Movies.ToList()[0].Poster)
+                    @Html.DisplayNameFor(dummy => Model.Movies[0].Poster)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Movies)
+            @foreach (var item in Model.Movies.ToList())
             {
                 <tr>
                     <td>
@@ -68,6 +53,6 @@
     </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.List.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

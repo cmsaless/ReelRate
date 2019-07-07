@@ -10,10 +10,10 @@ namespace MVC.Models
         public string MovieID { get; set; }
         public string ListID { get; set; }
 
-        public MovieListItem(string MovieID, string ListID)
+        public MovieListItem(string ListID, string MovieID)
         {
-            this.MovieID = MovieID;
             this.ListID = ListID;
+            this.MovieID = MovieID;
         }
     }
 }

@@ -40,11 +40,24 @@ namespace MVC.Controllers
 
         public ActionResult Details(string ID)
         {
-            var movieList = _context.Find(ID);
-            return View(movieList);
+            MovieList movieList = _context.Find(ID);
+
+            List<string> movieIDs = (from listItem in _contextItems.Collection()
+                                  where listItem.ListID == ID
+                                  select listItem.MovieID).ToList();
+
+            List<Movie> movies = new List<Movie>();
+            foreach(string s in movieIDs)
+            {
+                movies.Add(_movies.Find(s));
+            }
+
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
+
+            return View(viewModel);
         }
 
-        public ActionResult AddMovie(string ID)
+        public ActionResult Add(string ID)
         {
             var movieList = _context.Find(ID);
 
@@ -64,9 +77,17 @@ namespace MVC.Controllers
             _contextItems.Commit();
 
             movieList.Movies.Add(movie);
+
             _context.Commit();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { ID = listID });
+        }
+
+        [HttpPost]
+        public ActionResult Remove(string listID, string movieID)
+        {
+
+            return RedirectToAction("Details");
         }
     }
 

@@ -38,7 +38,8 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(string ID)
+        [ActionName("View")]
+        public ActionResult ViewList(string ID)
         {
             MovieList movieList = _context.Find(ID);
 
@@ -61,18 +62,18 @@ namespace MVC.Controllers
         {
             var movieList = _context.Find(ID);
 
-            AddMovieViewModel viewModel = new AddMovieViewModel(movieList, _movies.Collection());
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, _movies.Collection().ToList());
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Add(string listID, string movieID)
+        public ActionResult Add(string list_id, string movie_id)
         {
-            var movie = _movies.Find(movieID);
-            var movieList = _context.Find(listID);
+            var movie = _movies.Find(movie_id);
+            var movieList = _context.Find(list_id);
 
-            MovieListItem listItem = new MovieListItem(listID, movieID);
+            MovieListItem listItem = new MovieListItem(list_id, movie_id);
             _contextItems.Insert(listItem);
             _contextItems.Commit();
 
@@ -80,7 +81,7 @@ namespace MVC.Controllers
 
             _context.Commit();
 
-            return RedirectToAction("Details", new { ID = listID });
+            return RedirectToAction("Details", new { ID = list_id });
         }
 
         [HttpPost]

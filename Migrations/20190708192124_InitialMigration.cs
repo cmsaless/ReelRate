@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MVC.Data.Migrations
+namespace MVC.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,49 @@ namespace MVC.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieList",
+                columns: table => new
+                {
+                    ID = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieList", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieListItem",
+                columns: table => new
+                {
+                    ID = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    MovieID = table.Column<string>(nullable: true),
+                    ListID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieListItem", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    ID = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    TMDB_ID = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Year = table.Column<string>(nullable: true),
+                    Poster = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,6 +252,15 @@ namespace MVC.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "MovieList");
+
+            migrationBuilder.DropTable(
+                name: "MovieListItem");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

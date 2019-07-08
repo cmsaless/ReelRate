@@ -4,16 +4,14 @@ using MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MVC.Data.Migrations
+namespace MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190706193502_AddedMovies")]
-    partial class AddedMovies
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,6 +202,37 @@ namespace MVC.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("MVC.Models.MovieList", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTimeOffset>("CreatedAt");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MovieList");
+                });
+
+            modelBuilder.Entity("MVC.Models.MovieListItem", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTimeOffset>("CreatedAt");
+
+                    b.Property<string>("ListID");
+
+                    b.Property<string>("MovieID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MovieListItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

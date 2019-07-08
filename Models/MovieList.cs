@@ -7,11 +7,5 @@ namespace MVC.Models
     {
         [Required]
         public string Name { get; set; }
-        public ICollection<Movie> Movies { get; set; }
-
-        public MovieList()
-        {
-            Movies = new List<Movie>();
-        }
     }
 }

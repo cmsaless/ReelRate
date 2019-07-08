@@ -22,7 +22,7 @@ namespace MVC.Controllers
         public ActionResult Index()
         {
             List<MovieList> movieLists = _context.Collection().ToList();
-            ViewBag.Me = "You"; // LOOK TO THE VIEWBAG FOR YOUR PROBLEMS
+            ViewBag.Me = "You"; // ViewBag test
 
             return View(movieLists);
         }
@@ -52,13 +52,13 @@ namespace MVC.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Add(string list_id)
+        public ActionResult Search(string query)
         {
-            MovieList movieList = _context.Find(list_id);
-            List<Movie> allMovies = _movies.Collection().ToList();
+            //MovieList movieList = _context.Find(list_id);
+            //List<Movie> allMovies = _movies.Collection().ToList();
 
-            MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
-            return View(viewModel);
+            //MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
+            return View("~/Views/MovieLists/Search.cshtml", model:query);
         }
 
         [HttpPost]
@@ -70,8 +70,6 @@ namespace MVC.Controllers
             MovieListItem listItem = new MovieListItem(list_id, movie_id);
             _contextItems.Insert(listItem);
             _contextItems.Commit();
-
-            movieList.Movies.Add(movie);
 
             _context.Commit();
 
@@ -102,6 +100,19 @@ namespace MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult ConfirmDelete(string list_id)
         {
+            List<string> listItemIDs = (from item in _contextItems.Collection()
+                                             where item.ListID == list_id
+                                             select item.ID).ToList();
+
+            foreach (string id in listItemIDs)
+            {
+                _contextItems.Delete(id);
+            }
+            _contextItems.Commit();
+
+            _context.Delete(list_id);
+            _context.Commit();
+
             return RedirectToAction("Index");
         }
 

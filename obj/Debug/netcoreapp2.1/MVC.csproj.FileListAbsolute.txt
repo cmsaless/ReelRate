@@ -141,3 +141,4 @@ C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razo
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razor\Views\MovieLists\Create.g.cshtml.cs
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razor\Views\MovieLists\Add.g.cshtml.cs
 C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razor\Views\MovieLists\View.g.cshtml.cs
+C:\Users\chris\Coding\Personal\ASP.NET\ReelRate\MVC\obj\Debug\netcoreapp2.1\Razor\Views\MovieLists\Delete.g.cshtml.cs

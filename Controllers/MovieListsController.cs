@@ -41,39 +41,31 @@ namespace MVC.Controllers
         }
 
         [ActionName("View")]
-        public ActionResult ViewList(string ID)
+        public ActionResult ViewList(string list_id)
         {
-            MovieList movieList = _context.Find(ID);
-
-            List<string> movieIDs = (from listItem in _contextItems.Collection()
-                                  where listItem.ListID == ID
-                                  select listItem.MovieID).ToList();
-
-            List<Movie> movies = new List<Movie>();
-            foreach(string s in movieIDs)
-            {
-                movies.Add(_movies.Find(s));
-            }
+            //MovieList movieList = _context.Collection().FirstOrDefault(i => i.ID == list_id);
+            MovieList movieList = _context.Find(list_id);
+            List<Movie> movies = getMoviesInThisList(list_id);
 
             MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
 
             return View(viewModel);
         }
 
-        public ActionResult Add(string ID)
+        public ActionResult Add(string list_id)
         {
-            var movieList = _context.Find(ID);
+            MovieList movieList = _context.Find(list_id);
+            List<Movie> allMovies = _movies.Collection().ToList();
 
-            MovieListViewModel viewModel = new MovieListViewModel(movieList, _movies.Collection().ToList());
-
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
             return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult Add(string list_id, string movie_id)
         {
-            var movie = _movies.Find(movie_id);
-            var movieList = _context.Find(list_id);
+            MovieList movieList = _context.Find(list_id);
+            Movie movie = _movies.Find(movie_id);
 
             MovieListItem listItem = new MovieListItem(list_id, movie_id);
             _contextItems.Insert(listItem);
@@ -83,15 +75,61 @@ namespace MVC.Controllers
 
             _context.Commit();
 
-            return RedirectToAction("Details", new { ID = list_id });
+            return RedirectToAction("View", new { list_id });
         }
 
         [HttpPost]
-        public ActionResult Remove(string listID, string movieID)
+        public ActionResult Remove(string list_id, string movie_id)
         {
+            MovieList movieList = _context.Find(list_id);
+            MovieListItem listItem = _contextItems.Collection().FirstOrDefault(i => (i.ListID==list_id && i.MovieID==movie_id));
 
-            return RedirectToAction("Details");
+            _contextItems.Delete(listItem.ID);
+            _contextItems.Commit();
+
+            return RedirectToAction("View", new { list_id });
         }
+
+        public ActionResult Delete(string list_id)
+        {
+            var movieList = _context.Find(list_id);
+            List<Movie> movies = getMoviesInThisList(list_id);
+
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult ConfirmDelete(string list_id)
+        {
+            return RedirectToAction("Index");
+        }
+
+        #region helpers
+
+        public List<Movie> getMoviesInThisList(string list_id)
+        {
+            /*
+             * Why not just grab the movies in the query? Because you can get multiple
+             * concurrent calls to the SQLRepository so this is just the 'cleaner' way
+             * of doing it.
+             */
+
+            List<string> movieIDs = (from listItem in _contextItems.Collection()
+                                     where listItem.ListID == list_id
+                                     select listItem.MovieID).ToList();
+
+            List<Movie> movies = new List<Movie>();
+            foreach (string s in movieIDs)
+            {
+                movies.Add(_movies.Find(s));
+            }
+
+            return movies;
+        }
+
+        #endregion
+
     }
 
 }

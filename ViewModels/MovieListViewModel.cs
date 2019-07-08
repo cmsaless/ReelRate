@@ -8,11 +8,13 @@ namespace MVC.Models
     {
         public MovieList ModelList { get; set; }
         public List<Movie> Movies { get; set; }
+        public int Size { get; set; }
 
         public MovieListViewModel(MovieList ModelList, List<Movie> Movies)
         {
             this.ModelList = ModelList;
             this.Movies = Movies;
+            Size = Movies.Count;
         }
     }
 }

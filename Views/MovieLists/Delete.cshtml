@@ -1,0 +1,34 @@
+﻿@model MVC.Models.MovieListViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you want to delete this list?</h2>
+
+<div>
+    <h4>MovieList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelList.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModelList.Name)
+        </dd>
+        <dt>
+            Size
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+        <input type="hidden" name="list_id" value="@Model.ModelList.ID">
+        <input type="submit" class="btn btn-danger" value="Yup, delete" />
+    }
+    @Html.ActionLink("Go Back", "Index", "MovieLists", null, new { @class = "btn btn-primary" })
+</div>

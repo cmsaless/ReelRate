@@ -33,8 +33,8 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    <a asp-action="View" asp-route-id="@item.ID">View</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    @Html.ActionLink("View", "View", "MovieLists", new { list_id = item.ID }, null) | 
+                    @Html.ActionLink("Delete", "Delete", "MovieLists", new { list_id = item.ID}, null)
                 </td>
             </tr>
         }

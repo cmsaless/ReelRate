@@ -23,6 +23,7 @@ namespace MVC.Controllers
         {
             List<MovieList> movieLists = _context.Collection().ToList();
             ViewBag.Me = "You"; // LOOK TO THE VIEWBAG FOR YOUR PROBLEMS
+
             return View(movieLists);
         }
 

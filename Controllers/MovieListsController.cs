@@ -22,6 +22,7 @@ namespace MVC.Controllers
         public ActionResult Index()
         {
             List<MovieList> movieLists = _context.Collection().ToList();
+            ViewBag.Me = "You"; // LOOK TO THE VIEWBAG FOR YOUR PROBLEMS
             return View(movieLists);
         }
 

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Contracts;
 using MVC.Models;
+using Newtonsoft.Json;
 
 namespace MVC.Controllers
 {
@@ -12,11 +15,15 @@ namespace MVC.Controllers
         private IRepository<MovieListItem> _contextItems;
         private readonly IRepository<Movie> _movies;
 
-        public MovieListsController(IRepository<MovieList> context, IRepository<MovieListItem> contextItems, IRepository<Movie> movies)
+        private readonly IHttpClientFactory _clientFactory;
+
+        public MovieListsController(IRepository<MovieList> context, IRepository<MovieListItem> contextItems, IRepository<Movie> movies, IHttpClientFactory clientFactory)
         {
             _context = context;
             _contextItems = contextItems;
             _movies = movies;
+
+            _clientFactory = clientFactory;
         }
 
         public ActionResult Index()
@@ -45,19 +52,23 @@ namespace MVC.Controllers
         {
             //MovieList movieList = _context.Collection().FirstOrDefault(i => i.ID == list_id);
             MovieList movieList = _context.Find(list_id);
-            List<Movie> movies = getMoviesInThisList(list_id);
+            List<Movie> movies = GetMoviesInThisList(list_id);
 
             MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
 
             return View(viewModel);
         }
 
-        public ActionResult Search(string query)
+        [ActionName("Search")]
+        public async Task<ActionResult> SearchAsync(string query)
         {
             //MovieList movieList = _context.Find(list_id);
             //List<Movie> allMovies = _movies.Collection().ToList();
 
             //MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
+
+            await SearchTMDB(query);
+
             return View("~/Views/MovieLists/Search.cshtml", model:query);
         }
 
@@ -91,7 +102,7 @@ namespace MVC.Controllers
         public ActionResult Delete(string list_id)
         {
             var movieList = _context.Find(list_id);
-            List<Movie> movies = getMoviesInThisList(list_id);
+            List<Movie> movies = GetMoviesInThisList(list_id);
 
             MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
             return View(viewModel);
@@ -118,7 +129,7 @@ namespace MVC.Controllers
 
         #region helpers
 
-        public List<Movie> getMoviesInThisList(string list_id)
+        public List<Movie> GetMoviesInThisList(string list_id)
         {
             /*
              * Why not just grab the movies in the query? Because you can get multiple
@@ -137,6 +148,25 @@ namespace MVC.Controllers
             }
 
             return movies;
+        }
+
+        public async Task SearchTMDB(string query)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
+                "https://api.themoviedb.org/3/search/company?api_key=96176cdd887d42653dce0c4c94f56705&query=Fight&page=1");
+
+            request.Headers.Add("Accept", "application/vnd.github.v3+json");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+            HttpClient client = _clientFactory.CreateClient();
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RESPONSE: " + response.Content);
+
+            string jsonString = await response.Content.ReadAsStringAsync();
+            var json = JsonConvert.DeserializeObject<object>(jsonString);
+
+            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>JSON: " + json);
         }
 
         #endregion

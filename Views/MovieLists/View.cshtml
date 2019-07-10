@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.ModelList.Name</h2>
-
 <script>
     function update() {
         console.log("update");
@@ -34,9 +32,26 @@
         btn.html("Saved!")
         btn.removeClass("btn-success")
         btn.addClass("btn-default")
-        setTimeout(function () { btn.addClass('btn-success'); btn.removeClass('btn-default'); btn.html("Save List"); }, 1000)
+        setTimeout(function () {btn.addClass('btn-success');btn.removeClass('btn-default');btn.html("Save List");}, 1000)
+    }
+
+    /*
+     * Even if the user has JS disabled in their browser, the middle-ware will
+     * prevent movies from being added to a list at maximum capacity.
+     */
+    function attemptToAdd() {
+
+        if (@Model.ModelList.Size == 5) {
+            console.log("max")
+            var elem = document.getElementById('error');
+            elem.innerHTML = "There's no room for more movies!"
+        } else {
+            window.location.replace("/MovieLists/Add?list_id="+'@Model.ModelList.ID')
+        }
     }
 </script>
+
+<h2>@Model.ModelList.Name</h2>
 
 <div>
     <hr />
@@ -45,26 +60,26 @@
             Movie info will go here
         </div>
         <div class="col-md-8">
+            <h4 style="color:red" id="error"></h4>
             <p>
                 <button class="btn btn-success" id="save-button" onclick="update()">Save List</button>
-
-                @Html.ActionLink("Add Movies", "Add", "MovieLists", new { list_id = Model.ModelList.ID }, new { @class = "btn btn-primary" })
+                <button class="btn btn-primary" onclick="attemptToAdd()">Add To List</button>
             </p>
             <ol id="columns">
                 @{ ViewBag.ListID = Model.ModelList.ID; }
-                @foreach ((int, Movie) rankedMovie in Model.RankedMovies)
+                @for (int i=0; i<Model.RankedMovies.Count; ++i)
                 {
-                    int rank = rankedMovie.Item1;
-                    Movie movie = rankedMovie.Item2;
+                    int rank = i+1;
+                    Movie movie = Model.RankedMovies[i].Item2;
                     <li class="column li-item" draggable="true">
                         <div class="header">
-                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data"}))
+                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
                             {
                                 <div class="movie-item">
                                     <span class="header-span rank">@rank. @movie.Title</span>
                                     <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
                                     <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">
-                                    <input type="submit" class="btn btn-danger" style="float:right" value="Remove" />
+                                    <input type="submit" onclick="reOrder()" class="btn btn-danger" style="float:right" value="Remove" />
                                 </div>
                             }
                         </div>
@@ -78,4 +93,5 @@
 
 <link rel="stylesheet" type="text/css" href="~/css/view.css" />
 <script type="text/javascript" src="~/js/draggable.js"></script>
+
 

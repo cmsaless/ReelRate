@@ -85,6 +85,12 @@ namespace MVC.Controllers
         public ActionResult Add(string list_id)
         {
             MovieList movieList = _context.Find(list_id);
+
+            if (movieList.Size == 5)
+            {
+                return RedirectToAction("View", new { list_id });
+            }
+
             List<Movie> allMovies = _movies.Collection().ToList();
 
             //MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);

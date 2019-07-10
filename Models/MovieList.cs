@@ -7,5 +7,21 @@ namespace MVC.Models
     {
         [Required]
         public string Name { get; set; }
+        public int Size { get; set; }
+
+        public MovieList()
+        {
+            Size = 0;
+        }
+
+        public void IncrementSize()
+        {
+            Size += 1;
+        }
+
+        public void DecrementSize()
+        {
+            Size -= 1;
+        }
     }
 }

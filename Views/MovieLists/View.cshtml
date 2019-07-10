@@ -7,6 +7,31 @@
 
 <h2>@Model.ModelList.Name</h2>
 
+<script>
+    function update() {
+        console.log("update");
+
+        var arr = document.getElementsByClassName("movie-item");
+
+        var ranks = document.getElementsByClassName('rank')
+        var listIDs = document.getElementsByClassName('list-id')
+        var movieIDs = document.getElementsByClassName('movie-id')
+
+        for (i = 0; i < ranks.length; ++i) {
+            var text = ranks[i].innerText;
+            var idxOfDot = text.indexOf('.');
+            var rank = text.substr(0, idxOfDot);
+
+            var listID = listIDs[i].value
+            var movieID = movieIDs[i].value
+
+            console.log(rank, movieID);
+            $.post("/MovieLists/Save", {list_id: listID, movie_id: movieID, new_rank: rank})
+        }
+
+    }
+</script>
+
 <div>
     <hr />
     <div class="row">
@@ -15,22 +40,26 @@
         </div>
         <div class="col-md-8">
             <p>
-                @Html.ActionLink("Add Movies", "Search", "MovieLists", new { query = "" }, new { @class = "btn btn-primary" })
+                <button class="btn btn-success" onclick="update()">Save</button>
+
+                @Html.ActionLink("Add Movies", "Add", "MovieLists", new { list_id = Model.ModelList.ID }, new { @class = "btn btn-primary" })
             </p>
             <ol id="columns">
                 @{ ViewBag.ListID = Model.ModelList.ID; }
-                @for (int i = 0; i < Model.Movies.Count(); ++i)
+                @foreach ((int, Movie) rankedMovie in Model.RankedMovies)
                 {
-                    int j = i + 1;
-                    Movie movie = Model.Movies[i];
+                    int rank = rankedMovie.Item1;
+                    Movie movie = rankedMovie.Item2;
                     <li class="column li-item" draggable="true">
                         <div class="header">
-                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
+                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data"}))
                             {
-                                <span class="header-span">@j. @movie.Title</span>
-                                <input type="hidden" name="list_id" value="@Model.ModelList.ID">
-                                <input type="hidden" name="movie_id" value="@movie.ID">
-                                <input type="submit" class="btn btn-danger" style="float:right" value="Remove" />
+                                <div class="movie-item">
+                                    <span class="header-span rank">@rank. @movie.Title</span>
+                                    <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
+                                    <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">
+                                    <input type="submit" class="btn btn-danger" style="float:right" value="Remove" />
+                                </div>
                             }
                         </div>
                     </li>
@@ -43,3 +72,4 @@
 
 <link rel="stylesheet" type="text/css" href="~/css/view.css" />
 <script type="text/javascript" src="~/js/draggable.js"></script>
+

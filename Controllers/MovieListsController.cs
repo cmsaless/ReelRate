@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -47,14 +49,41 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        //[ActionName("View")]
+        //public ActionResult ViewList(string list_id)
+        //{
+        //    //MovieList movieList = _context.Collection().FirstOrDefault(i => i.ID == list_id);
+        //    MovieList movieList = _context.Find(list_id);
+        //    List<Movie> movies = GetMoviesInThisList(list_id);
+
+        //    List<MovieListViewModel> viewModelList;
+        //    for (int i=0; i<movies.Count; i++)
+        //    {
+        //        viewModelList.Add(new MovieListViewModel(movies[i], ))
+        //    }
+
+        //    MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
+
+        //    return View(viewModel);
+        //}
+
         [ActionName("View")]
         public ActionResult ViewList(string list_id)
         {
-            //MovieList movieList = _context.Collection().FirstOrDefault(i => i.ID == list_id);
             MovieList movieList = _context.Find(list_id);
-            List<Movie> movies = GetMoviesInThisList(list_id);
 
-            MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
+            List<MovieListItem> movieListItems = (from item in _contextItems.Collection()
+                                                  where item.ListID == list_id
+                                                  select item).ToList();
+
+            List<(int, Movie)> rankedMovies = new List<(int, Movie)>();
+            foreach (MovieListItem item in movieListItems)
+            {
+                rankedMovies.Add((item.Rank, _movies.Find(item.MovieID)));
+            }
+            rankedMovies = rankedMovies.OrderBy(i => i.Item1).ToList();
+
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
 
             return View(viewModel);
         }
@@ -69,7 +98,17 @@ namespace MVC.Controllers
 
             await SearchTMDB(query);
 
-            return View("~/Views/MovieLists/Search.cshtml", model:query);
+            return View("~/Views/MovieLists/Search.cshtml", model: query);
+        }
+
+        public ActionResult Add(string list_id)
+        {
+            MovieList movieList = _context.Find(list_id);
+            List<Movie> allMovies = _movies.Collection().ToList();
+
+            //MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
+            ViewBag.ListID = list_id;
+            return View(allMovies);
         }
 
         [HttpPost]
@@ -79,6 +118,8 @@ namespace MVC.Controllers
             Movie movie = _movies.Find(movie_id);
 
             MovieListItem listItem = new MovieListItem(list_id, movie_id);
+            movieList.IncrementSize();
+            listItem.Rank = movieList.Size;
             _contextItems.Insert(listItem);
             _contextItems.Commit();
 
@@ -87,24 +128,36 @@ namespace MVC.Controllers
             return RedirectToAction("View", new { list_id });
         }
 
-        [HttpPost]
-        public ActionResult Remove(string list_id, string movie_id)
+        [HttpPost, ActionName("Remove")]
+        public ActionResult RemoveMovie(string list_id, string movie_id)
         {
             MovieList movieList = _context.Find(list_id);
-            MovieListItem listItem = _contextItems.Collection().FirstOrDefault(i => (i.ListID==list_id && i.MovieID==movie_id));
+            MovieListItem listItem = _contextItems.Collection().FirstOrDefault(i => (i.ListID == list_id && i.MovieID == movie_id));
 
             _contextItems.Delete(listItem.ID);
             _contextItems.Commit();
+
+            movieList.DecrementSize();
+            _context.Commit();
 
             return RedirectToAction("View", new { list_id });
         }
 
         public ActionResult Delete(string list_id)
         {
-            var movieList = _context.Find(list_id);
-            List<Movie> movies = GetMoviesInThisList(list_id);
+            MovieList movieList = _context.Find(list_id);
 
-            MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
+            List<MovieListItem> movieListItems = (from item in _contextItems.Collection()
+                                                  where item.ListID == list_id
+                                                  select item).ToList();
+
+            List<(int, Movie)> rankedMovies = new List<(int, Movie)>();
+            foreach (MovieListItem item in movieListItems)
+            {
+                rankedMovies.Add((item.Rank, _movies.Find(item.MovieID)));
+            }
+
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
             return View(viewModel);
         }
 
@@ -112,8 +165,8 @@ namespace MVC.Controllers
         public ActionResult ConfirmDelete(string list_id)
         {
             List<string> listItemIDs = (from item in _contextItems.Collection()
-                                             where item.ListID == list_id
-                                             select item.ID).ToList();
+                                        where item.ListID == list_id
+                                        select item.ID).ToList();
 
             foreach (string id in listItemIDs)
             {
@@ -126,6 +179,21 @@ namespace MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost, ActionName("Save")]
+        public void UpdateRanks(string list_id, string movie_id, string new_rank)
+        {
+            MovieList movieList = _context.Find(list_id);
+
+            MovieListItem listItem = (from item in _contextItems.Collection()
+                                      where item.ListID == list_id && item.MovieID == movie_id
+                                      select item).FirstOrDefault();
+
+            listItem.Rank = Convert.ToInt32(new_rank);
+            _contextItems.Update(listItem);
+            _contextItems.Commit();
+        }
+
 
         #region helpers
 

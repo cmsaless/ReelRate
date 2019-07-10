@@ -4,11 +4,13 @@
     {
         public string MovieID { get; set; }
         public string ListID { get; set; }
+        public int Rank { get; set; }
 
         public MovieListItem(string ListID, string MovieID)
         {
             this.ListID = ListID;
             this.MovieID = MovieID;
+            Rank = 0;
         }
     }
 }

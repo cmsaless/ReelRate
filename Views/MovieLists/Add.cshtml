@@ -1,4 +1,4 @@
-﻿@model MVC.Models.MovieListViewModel
+﻿@model IEnumerable<MVC.Models.Movie>
 
 @{
     ViewData["Title"] = "AddMovie";
@@ -6,51 +6,50 @@
 }
 
 <h2>Add Movie</h2>
-<h3>@ViewBag.CurrentListID</h3>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(dummy => Model.Movies[0].TMDB_ID)
+                @Html.DisplayNameFor(dummy => Model.First().TMDB_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(dummy => Model.Movies[0].Title)
+                @Html.DisplayNameFor(dummy => Model.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(dummy => Model.Movies[0].Year)
+                @Html.DisplayNameFor(dummy => Model.First().Year)
             </th>
             <th>
-                @Html.DisplayNameFor(dummy => Model.Movies[0].Poster)
+                @Html.DisplayNameFor(dummy => Model.First().Poster)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Movies)
+        @foreach (Movie movie in Model.ToList())
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TMDB_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Poster)
-            </td>
-            <td>
-                @using (Html.BeginForm("Add", "MovieLists", FormMethod.Post, new {encType = "multipart/form-data"}))
-                {
-                    <input type="hidden" name="list_id" value="@Model.ModelList.ID">
-                    <input type="hidden" name="movie_id" value="@item.ID">
-                    <input type="submit" class="btn btn-primary" value="Add" />
-                }
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => movie.TMDB_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => movie.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => movie.Poster)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Add", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
+                    {
+                        <input type="hidden" name="list_id" value="@ViewBag.ListID">
+                        <input type="hidden" name="movie_id" value="@movie.ID">
+                        <input type="submit" class="btn btn-primary" value="Add" />
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

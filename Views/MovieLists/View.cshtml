@@ -29,6 +29,12 @@
             $.post("/MovieLists/Save", {list_id: listID, movie_id: movieID, new_rank: rank})
         }
 
+
+        var btn = $("#save-button")
+        btn.html("Saved!")
+        btn.removeClass("btn-success")
+        btn.addClass("btn-default")
+        setTimeout(function () { btn.addClass('btn-success'); btn.removeClass('btn-default'); btn.html("Save List"); }, 1000)
     }
 </script>
 
@@ -40,7 +46,7 @@
         </div>
         <div class="col-md-8">
             <p>
-                <button class="btn btn-success" onclick="update()">Save</button>
+                <button class="btn btn-success" id="save-button" onclick="update()">Save List</button>
 
                 @Html.ActionLink("Add Movies", "Add", "MovieLists", new { list_id = Model.ModelList.ID }, new { @class = "btn btn-primary" })
             </p>

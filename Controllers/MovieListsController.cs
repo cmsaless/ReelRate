@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -48,24 +47,6 @@ namespace MVC.Controllers
             _context.Commit();
             return RedirectToAction("Index");
         }
-
-        //[ActionName("View")]
-        //public ActionResult ViewList(string list_id)
-        //{
-        //    //MovieList movieList = _context.Collection().FirstOrDefault(i => i.ID == list_id);
-        //    MovieList movieList = _context.Find(list_id);
-        //    List<Movie> movies = GetMoviesInThisList(list_id);
-
-        //    List<MovieListViewModel> viewModelList;
-        //    for (int i=0; i<movies.Count; i++)
-        //    {
-        //        viewModelList.Add(new MovieListViewModel(movies[i], ))
-        //    }
-
-        //    MovieListViewModel viewModel = new MovieListViewModel(movieList, movies);
-
-        //    return View(viewModel);
-        //}
 
         [ActionName("View")]
         public ActionResult ViewList(string list_id)

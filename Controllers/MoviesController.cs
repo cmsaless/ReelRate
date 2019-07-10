@@ -42,7 +42,7 @@ namespace MVC.Controllers
 
         public ActionResult Delete(string ID)
         {
-            var movie = _context.Find(ID);
+            Movie movie = _context.Find(ID);
             return View(movie);
         }
 

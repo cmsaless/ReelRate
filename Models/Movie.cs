@@ -4,8 +4,9 @@ namespace MVC.Models
 {
     public class Movie : BaseEntity
     {
-        [Display(Name = "Movie Database ID")]
+        [Required, Display(Name = "Movie Database ID")]
         public int TMDB_ID { get; set; }
+        [Required]
         public string Title { get; set; }
         [Display(Name = "Year of Release")]
         public string Year { get; set; }

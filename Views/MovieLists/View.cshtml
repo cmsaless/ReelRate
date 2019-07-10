@@ -5,9 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>@Model.ModelList.Name</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            Movie info will go here
+        </div>
+        <div class="col-md-8">
+            <h4 style="color:red" id="error"></h4>
+            <p>
+                <button class="btn btn-success" id="save-button" onclick="update()">Save List</button>
+                <button class="btn btn-primary" onclick="attemptToAdd()">Add To List</button>
+            </p>
+            <ol id="columns">
+                @{ ViewBag.ListID = Model.ModelList.ID; }
+                @for (int i=0; i<Model.RankedMovies.Count; ++i)
+                {
+                    int rank = i+1;
+                    Movie movie = Model.RankedMovies[i].Item2;
+                    <li class="column li-item" draggable="true">
+                        <div class="header">
+                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
+                            {
+                                <div class="movie-item">
+                                    <span class="header-span rank">@rank. @movie.Title</span>
+                                    <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
+                                    <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">
+                                    <input type="submit" onclick="reOrder()" class="btn btn-danger" style="float:right" value="Remove" />
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="~/css/view.css" />
+<script type="text/javascript" src="~/js/MovieLists/View/draggable.js"></script>
+
 <script>
+
+    /*
+     * 
+     */ 
     function update() {
-        console.log("update");
 
         var arr = document.getElementsByClassName("movie-item");
 
@@ -50,48 +96,5 @@
         }
     }
 </script>
-
-<h2>@Model.ModelList.Name</h2>
-
-<div>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            Movie info will go here
-        </div>
-        <div class="col-md-8">
-            <h4 style="color:red" id="error"></h4>
-            <p>
-                <button class="btn btn-success" id="save-button" onclick="update()">Save List</button>
-                <button class="btn btn-primary" onclick="attemptToAdd()">Add To List</button>
-            </p>
-            <ol id="columns">
-                @{ ViewBag.ListID = Model.ModelList.ID; }
-                @for (int i=0; i<Model.RankedMovies.Count; ++i)
-                {
-                    int rank = i+1;
-                    Movie movie = Model.RankedMovies[i].Item2;
-                    <li class="column li-item" draggable="true">
-                        <div class="header">
-                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
-                            {
-                                <div class="movie-item">
-                                    <span class="header-span rank">@rank. @movie.Title</span>
-                                    <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
-                                    <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">
-                                    <input type="submit" onclick="reOrder()" class="btn btn-danger" style="float:right" value="Remove" />
-                                </div>
-                            }
-                        </div>
-                    </li>
-                }
-            </ol>
-        </div>
-    </div>
-
-</div>
-
-<link rel="stylesheet" type="text/css" href="~/css/view.css" />
-<script type="text/javascript" src="~/js/draggable.js"></script>
 
 

@@ -58,24 +58,7 @@ namespace MVC.Controllers
             return View(viewModel);
         }
 
-        /*
-         * Not used currently. Will be implemented later.
-         */
-        [ActionName("Search")]
-        public async Task<ActionResult> SearchAsync(string query)
-        {
-            //MovieList movieList = _listContext.Find(list_id);
-            //List<Movie> allMovies = _allMoviesContext.Collection().ToList();
-
-            //MovieListViewModel viewModel = new MovieListViewModel(movieList, allMovies);
-
-            await SearchTMDB(query);
-
-            return View("~/Views/MovieLists/Search.cshtml", model: query);
-        }
-
-        [ActionName("Add")]
-        public ActionResult AddMovie(string list_id)
+        public ActionResult Search(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
 
@@ -86,19 +69,31 @@ namespace MVC.Controllers
                 res = RedirectToAction("View", new { list_id });
             } else
             {
-                ViewBag.ListID = list_id;
-                List<Movie> allMovies = _allMoviesContext.Collection().ToList();
-                res = View(allMovies);
+                MovieListViewModel viewModel = new MovieListViewModel(movieList, new List<(int, Movie)>());
+                res = View(viewModel);
+                //ViewBag.ListID = list_id;
+                //List<Movie> allMovies = _allMoviesContext.Collection().ToList();
+                //res = View(allMovies);
             }
 
             return res;
         }
 
         [HttpPost, ActionName("Add")]
-        public ActionResult AddMovie(string list_id, string movie_id)
+        //public ActionResult AddMovie(string list_id, string tmdb_id, string title, string year, string poster)
+        public ActionResult AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
-            MovieListItem listItem = new MovieListItem(list_id, movie_id);
+
+            Movie findMovie = _allMoviesContext.Find(movie.ID);
+
+            if (findMovie == null)
+            {
+                _allMoviesContext.Insert(movie);
+                _allMoviesContext.Commit();
+            }
+
+            MovieListItem listItem = new MovieListItem(list_id, movie.ID);
 
             movieList.IncrementSize();
             listItem.Rank = movieList.Size;

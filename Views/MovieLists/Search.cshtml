@@ -1,21 +1,42 @@
-﻿@model string
+﻿@model MVC.Models.MovieListViewModel
 
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" type="text/css" href="~/css/search.css" />
+
 <h1>@ViewData["Title"]</h1>
 
-@using (Html.BeginForm("Search", "MovieLists", FormMethod.Get, new { encType = "multipart/form-data" }))
-{
-    <div class="row">
-        <div class="col-md-11">
-            <input class="form-control" type="text" name="query" value="" style="width:100%" />
-        </div>
-        <div class="col-md-1">
-            <input type="submit" class="btn btn-primary" value="Search">
-        </div>
+<div class="row">
+    <div class="col-md-11">
+        <input class="form-control" type="text" value="" id="search-bar" />
     </div>
-}
+    <div class="col-md-1">
+        <input type="submit" class="btn btn-primary" value="Search" id="search-button" onclick="search('@Model.ModelList.ID')">
+    </div>
+</div>
 
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(d => Model.RankedMovies[0].Item2.Poster);
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => Model.RankedMovies[0].Item2.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(d => Model.RankedMovies[0].Item2.Year)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="results">
+    </tbody>
+</table>
+
+<script src="~/js/MovieLists/Search/tmdb_api.js"></script>

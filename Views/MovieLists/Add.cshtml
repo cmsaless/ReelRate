@@ -5,7 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add A Movie</h2>
+<h2>Search for a movie</h2>
+
+@using (Html.BeginForm("Search", "MovieLists", FormMethod.Get, new { encType = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-11">
+            <input class="form-control" type="text" name="query" value="" style="width:100%" />
+        </div>
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-primary" value="Search">
+        </div>
+    </div>
+}
+
+<br />
 
 <table class="table">
     <thead>

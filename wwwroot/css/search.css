@@ -1,0 +1,17 @@
+﻿body {
+}
+
+#search-bar {
+    width: 100%;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.class-info {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+}
+

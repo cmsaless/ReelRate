@@ -87,12 +87,12 @@
      */
     function attemptToAdd() {
 
-        if (@Model.ModelList.Size == 5) {
+        if (@Model.ModelList.Size == 100) {
             console.log("max")
             var elem = document.getElementById('error');
             elem.innerHTML = "There's no room for more movies!"
         } else {
-            window.location.replace("/MovieLists/Add?list_id="+'@Model.ModelList.ID')
+            window.location.replace("/MovieLists/Search?list_id="+'@Model.ModelList.ID')
         }
     }
 </script>

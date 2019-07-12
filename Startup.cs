@@ -33,7 +33,7 @@ namespace MVC
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Server = tcp:reelrate.database.windows.net, 1433; Initial Catalog = ReelRate; Persist Security Info = False; User ID = cmsaless; Password = Qw3rtyuiop[; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;")));
+                options.UseSqlServer(Configuration.GetConnectionString("Server=tcp:reelrate.database.windows.net,1433;Initial Catalog=ReelRate;Persist Security Info=False;User ID=cmsaless;Password=Qw3rtyuiop[;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")));
 
             services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
             services.AddScoped<IRepository<MovieList>, SQLRepository<MovieList>>();

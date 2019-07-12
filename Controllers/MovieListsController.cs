@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Contracts;
@@ -34,6 +35,7 @@ namespace MVC.Controllers
             _loggedInUserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             List<MovieList> movieLists = (from item in _listContext.Collection()
@@ -43,12 +45,14 @@ namespace MVC.Controllers
             return View(movieLists);
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(MovieList movieList)
         {
             movieList.AuthorID = _loggedInUserID;
@@ -60,6 +64,7 @@ namespace MVC.Controllers
         }
 
         [ActionName("View")]
+        [Authorize]
         public ActionResult ViewList(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
@@ -69,6 +74,7 @@ namespace MVC.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public ActionResult Search(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
@@ -91,6 +97,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost, ActionName("Add")]
+        [Authorize]
         public void AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
@@ -123,6 +130,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost, ActionName("Remove")]
+        [Authorize]
         public ActionResult RemoveMovie(string list_id, string movie_id)
         {
             MovieList movieList = _listContext.Find(list_id);
@@ -138,16 +146,24 @@ namespace MVC.Controllers
             return RedirectToAction("View", new { list_id });
         }
 
+        [Authorize]
         public ActionResult Delete(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
             List<(int, Movie)> rankedMovies = GetRankedMoviesOfList(list_id);
 
-            MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
-            return View(viewModel);
+            if (movieList.AuthorID == _loggedInUserID)
+            {
+                MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
+                return View(viewModel);
+            } else
+            {
+                return RedirectToPage("~/Views/Shared/Error.cshtml");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         public ActionResult ConfirmDelete(string list_id)
         {
             List<string> listItemIDs = (from item in _listItemsContext.Collection()
@@ -167,6 +183,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost, ActionName("Save")]
+        [Authorize]
         public void SaveList(string list_id, string movie_id, string new_rank)
         {
             MovieList movieList = _listContext.Find(list_id);

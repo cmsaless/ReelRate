@@ -43,7 +43,7 @@ function search(list_id) {
 
                 var tmdb_id = current_res['id']
 
-                var description = current_res['overview'];
+                var description = current_res['overview']
 
                 $('#results').append(
                     "<tr>" +
@@ -52,13 +52,13 @@ function search(list_id) {
                     "<td>" + "<p class='movie-info'>" + year + "</p>" + "</td>" +
                     "<td>" +
                     "<form action='/MovieLists/Add' method='post'>" +
-                    "<input type='hidden' name='list_id' value='" + list_id + "'>" + 
-                    "<input type='hidden' name='Movie.TMDB_ID' value='" + tmdb_id + "'>" + 
-                    "<input type='hidden' name='Movie.Title' value='" + title + "'>" + 
-                    //"<input type='hidden' name='Movie.Description' value='" + description + "'>" + 
-                    "<input type='hidden' name='Movie.Year' value='" + year + "'>" +
-                    "<input type='hidden' name='Movie.Poster' value='" + poster_url + "'>" +
-                    "<input type='submit' class='btn btn-primary' value='Add'>" +
+                    '<input type="hidden" name="list_id" value="' + list_id + '">' + 
+                    '<input type="hidden" name="Movie.TMDB_ID" value="' + tmdb_id + '">' + 
+                    '<input type="hidden" name="Movie.Title" value="' + cleanString(title) + '">' + 
+                    "<input type='hidden' name='Movie.Description' value='" + cleanString(description) + "'>" + 
+                    '<input type="hidden" name="Movie.Year" value="' + year + '">' +
+                    '<input type="hidden" name="Movie.Poster" value="' + poster_url + '">' +
+                    '<input type="submit" class="btn btn-primary" value="Add" id="submit-button" onclick="changeButton(this)">' +
                     "</td>" +
                     "</tr>")
             }
@@ -66,4 +66,23 @@ function search(list_id) {
 
     }
 
+}
+
+function changeButton(button) {
+    var btn = $("#submit-button")
+    btn.attr("value", "Added!")
+    btn.removeClass("btn-primary")
+    btn.addClass("btn-default")
+    btn.addClass("disabled")
+}
+
+function cleanString(string_) {
+    console.log("unclean: " + string_)
+    var retval = string_.replace(/"/g, '\\"')
+    retval = retval.replace(/'/g, "\\'")
+    //var retval = string_.replace(/\"/g, '"');
+    //retval = retval.replace(/"/g, '\"')
+    //console.log("cleaned: " + retval)
+
+    return retval;
 }

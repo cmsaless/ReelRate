@@ -5,13 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.ModelList.Name</h2>
-
 <div>
-    <hr />
     <div class="row">
-        <div class="col-md-4">
-            Movie info will go here
+        <h1><b>@Model.ModelList.Name</b></h1>
+        <div class="col-md-4" id="info-div" style="position:-webkit-sticky; position:sticky; top:0;">
+
         </div>
         <div class="col-md-8">
             <h4 style="color:red" id="error"></h4>
@@ -21,21 +19,22 @@
             </p>
             <ol id="columns">
                 @{ ViewBag.ListID = Model.ModelList.ID; }
-                @for (int i=0; i<Model.RankedMovies.Count; ++i)
+                @for (int i = 0; i < Model.RankedMovies.Count; ++i)
                 {
-                    int rank = i+1;
+                    int rank = i + 1;
                     Movie movie = Model.RankedMovies[i].Item2;
                     <li class="column li-item" draggable="true">
                         <div class="header">
-                            @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
-                            {
-                                <div class="movie-item">
+                            <div class="movie-item">
+                                @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
+                                {
                                     <span class="header-span rank">@rank. @movie.Title</span>
                                     <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
                                     <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">
                                     <input type="submit" onclick="reOrder()" class="btn btn-danger" style="float:right" value="Remove" />
-                                </div>
-                            }
+                                    <button type="button" class="btn btn-info" style="float:right; margin-right:1em" onclick='showInfo("@movie.Poster", "@movie.Title", "@movie.Year", "@movie.Description")'>Info</button>
+                                }
+                            </div>
                         </div>
                     </li>
                 }
@@ -50,9 +49,6 @@
 
 <script>
 
-    /*
-     * 
-     */ 
     function update() {
 
         var arr = document.getElementsByClassName("movie-item");
@@ -72,7 +68,6 @@
             console.log(rank, movieID);
             $.post("/MovieLists/Save", {list_id: listID, movie_id: movieID, new_rank: rank})
         }
-
 
         var btn = $("#save-button")
         btn.html("Saved!")
@@ -94,7 +89,16 @@
         } else {
             window.location.replace("/MovieLists/Search?list_id="+'@Model.ModelList.ID')
         }
+        }
+
+    function showInfo(poster_url, title, year, description) {
+        $('#info-div').empty();
+        $('#info-div').append('<img style="margin-top:5em" src="' + poster_url + '">')
+        $('#info-div').append('<h2>' + title + '</h2>')
+        $('#info-div').append('<h3>' + year + '</h3>')
+        $('#info-div').append('<p>' + description + '</p>')
     }
+
 </script>
 
 

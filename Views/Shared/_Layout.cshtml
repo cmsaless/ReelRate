@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Home</title>
+    <title>@ViewData["Title"]</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -32,7 +32,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Movies", "Index", "Movies", null, null)</li>
                     <li>@Html.ActionLink("Movie Lists", "Index", "MovieLists", null, null)</li>
                 </ul>
                 <partial name="_LoginPartial" />

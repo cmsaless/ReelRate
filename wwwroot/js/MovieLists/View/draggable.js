@@ -8,6 +8,7 @@ var cols = document.querySelectorAll('#columns .column');
 [].forEach.call(cols, addDnDHandlers);
 
 function handleDragStart(e) {
+    
     selectedElem = this;
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.outerHTML);

@@ -80,18 +80,21 @@ namespace MVC.Controllers
         }
 
         [HttpPost, ActionName("Add")]
-        //public ActionResult AddMovie(string list_id, string tmdb_id, string title, string year, string poster)
         public ActionResult AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
-
             Movie findMovie = _allMoviesContext.Find(movie.ID);
 
             if (findMovie == null)
             {
                 _allMoviesContext.Insert(movie);
-                _allMoviesContext.Commit();
+            } else
+            {
+                _allMoviesContext.Update(movie);
             }
+            _allMoviesContext.Commit();
+
+            string desc = movie.Description;
 
             MovieListItem listItem = new MovieListItem(list_id, movie.ID);
 

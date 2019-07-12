@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Contracts;
 using MVC.Models;
-using Newtonsoft.Json;
 
 namespace MVC.Controllers
 {
@@ -68,7 +66,7 @@ namespace MVC.Controllers
         public ActionResult ViewList(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
@@ -83,7 +81,7 @@ namespace MVC.Controllers
         public ActionResult Search(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
@@ -103,7 +101,7 @@ namespace MVC.Controllers
         public void AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return;
             }
@@ -139,7 +137,7 @@ namespace MVC.Controllers
         public ActionResult RemoveMovie(string list_id, string movie_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
@@ -160,7 +158,7 @@ namespace MVC.Controllers
         public ActionResult Delete(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
@@ -176,7 +174,7 @@ namespace MVC.Controllers
         public ActionResult ConfirmDelete(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
@@ -202,7 +200,7 @@ namespace MVC.Controllers
         public void SaveList(string list_id, string movie_id, string new_rank)
         {
             MovieList movieList = _listContext.Find(list_id);
-            if (movieList.ID != _loggedInUserID)
+            if (movieList.AuthorID != _loggedInUserID)
             {
                 return;
             }
@@ -235,25 +233,6 @@ namespace MVC.Controllers
             rankedMovies = rankedMovies.OrderBy(i => i.Item1).ToList();
 
             return rankedMovies;
-        }
-
-        public async Task SearchTMDB(string query)
-        {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get,
-                "https://api.themoviedb.org/3/search/company?api_key=96176cdd887d42653dce0c4c94f56705&query=Fight&page=1");
-
-            request.Headers.Add("Accept", "application/vnd.github.v3+json");
-            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-
-            HttpClient client = _clientFactory.CreateClient();
-
-            HttpResponseMessage response = await client.SendAsync(request);
-            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RESPONSE: " + response.Content);
-
-            string jsonString = await response.Content.ReadAsStringAsync();
-            var json = JsonConvert.DeserializeObject<object>(jsonString);
-
-            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>JSON: " + json);
         }
 
         #endregion

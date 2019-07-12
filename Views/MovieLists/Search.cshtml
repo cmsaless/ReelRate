@@ -9,6 +9,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
+@Html.ActionLink("Go Back", "View", "MovieLists", new { list_id = Model.ModelList.ID })
 <div class="row">
     <div class="col-md-11">
         <input class="form-control" type="text" value="" id="search-bar" />
@@ -35,8 +36,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody id="results">
-    </tbody>
+    <tbody id="results"></tbody>
 </table>
 
 <script src="~/js/MovieLists/Search/tmdb_api.js"></script>

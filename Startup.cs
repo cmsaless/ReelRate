@@ -34,6 +34,8 @@ namespace MVC
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
             services.AddScoped<IRepository<MovieList>, SQLRepository<MovieList>>();
             services.AddScoped<IRepository<MovieListItem>, SQLRepository<MovieListItem>>();

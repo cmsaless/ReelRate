@@ -40,9 +40,7 @@ function search(list_id) {
 
                 var title = current_res['title']
                 var year = current_res['release_date'].substr(0, 4)
-
                 var tmdb_id = current_res['id']
-
                 var description = current_res['overview']
 
                 $('#results').append(
@@ -51,14 +49,14 @@ function search(list_id) {
                     "<td>" + "<p class='movie-info'>" + title + "</p>" + "</td>" +
                     "<td>" + "<p class='movie-info'>" + year + "</p>" + "</td>" +
                     "<td>" +
-                    "<form action='/MovieLists/Add' method='post' id='Add-Movie-Form'>" +
+                    "<form action='/MovieLists/Add' method='post' id='Add-Movie-Form"+i+"'>" +
                     '<input type="hidden" name="list_id" value="' + list_id + '">' +
                     '<input type="hidden" name="Movie.TMDB_ID" value="' + tmdb_id + '">' +
-                    '<input type="hidden" name="Movie.Title" value="' + cleanString(title) + '">' +
-                    '<input type="hidden" name="Movie.Description" value="' + cleanString(description) + '">' +
+                    '<input type="hidden" name="Movie.Title" value="' + title + '">' +
+                    //'<input type="hidden" name="Movie.Description" value="' + cleanString(description) + '">' +
                     '<input type="hidden" name="Movie.Year" value="' + year + '">' +
                     '<input type="hidden" name="Movie.Poster" value="' + poster_url + '">' +
-                    '<input type="button" class="btn btn-primary" value="Add" id="submit-button" onclick="postForm(this)">' +
+                    '<input type="button" class="btn btn-primary" value="Add" id="submit-button" onclick="postForm(this, '+i+')">' +
                     '</form>' +
                     "</td>" +
                     "</tr>")
@@ -69,12 +67,12 @@ function search(list_id) {
 
 }
 
-function postForm(button) {
+function postForm(button, i) {
 
     $.ajax({
         url: '/MovieLists/Add',
         type: 'post',
-        data: $('#Add-Movie-Form').serialize()
+        data: $('#Add-Movie-Form' + i).serialize()
     });
 
     var btn = $(button)
@@ -86,8 +84,7 @@ function postForm(button) {
 
 function cleanString(string_) {
     console.log("unclean: " + string_)
-    var retval = string_.replace(/\"/g, '\&quot')
-    retval = retval.replace(/'/g, "\\'")
+    var retval = string_.replace(/\"/g, '&quot')
     console.log("cleaned: " + retval)
 
     return retval;

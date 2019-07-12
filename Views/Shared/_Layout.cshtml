@@ -31,9 +31,6 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@ViewData["Title"]</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Movie Lists", "Index", "MovieLists", null, null)</li>
-                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Contracts;
 using MVC.Models;
@@ -17,19 +19,26 @@ namespace MVC.Controllers
         private readonly IRepository<Movie> _allMoviesContext;
 
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MovieListsController(IRepository<MovieList> context, IRepository<MovieListItem> contextItems, IRepository<Movie> movies, IHttpClientFactory clientFactory)
+        private readonly string _loggedInUserID;
+
+        public MovieListsController(IRepository<MovieList> context, IRepository<MovieListItem> contextItems, IRepository<Movie> movies, IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _listContext = context;
             _listItemsContext = contextItems;
             _allMoviesContext = movies;
 
             _clientFactory = clientFactory;
+            _httpContextAccessor = httpContextAccessor;
+            _loggedInUserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         public ActionResult Index()
         {
-            List<MovieList> movieLists = _listContext.Collection().ToList();
+            List<MovieList> movieLists = (from item in _listContext.Collection()
+                                          where item.AuthorID == _loggedInUserID
+                                          select item).ToList();
 
             return View(movieLists);
         }
@@ -42,6 +51,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Create(MovieList movieList)
         {
+            movieList.AuthorID = _loggedInUserID;
             movieList.Size = 0;
             _listContext.Insert(movieList);
             _listContext.Commit();

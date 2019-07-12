@@ -5,6 +5,8 @@ namespace MVC.Models
     public class MovieList : BaseEntity
     {
         [Required]
+        public string AuthorID { get; set; }
+        [Required]
         public string Name { get; set; }
         [Required]
         public int Size { get; set; }

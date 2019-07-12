@@ -81,7 +81,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost, ActionName("Add")]
-        public ActionResult AddMovie(string list_id, Movie movie)
+        public void AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
             Movie findMovie = _allMoviesContext.Collection().FirstOrDefault(i => i.TMDB_ID == movie.TMDB_ID);
@@ -90,8 +90,10 @@ namespace MVC.Controllers
             {
                 _allMoviesContext.Insert(movie);
                 _allMoviesContext.Commit();
+            } else
+            {
+                movie = findMovie;
             }
-            movie = findMovie;
 
             if (_listItemsContext.Collection().FirstOrDefault(i => i.ListID==list_id && i.MovieID==movie.ID) == null)
             {
@@ -107,7 +109,7 @@ namespace MVC.Controllers
                 _listContext.Commit();
             }
 
-            return RedirectToAction("View", new { list_id });
+            //return RedirectToAction("View", new { list_id });
         }
 
         [HttpPost, ActionName("Remove")]

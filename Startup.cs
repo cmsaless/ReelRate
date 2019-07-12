@@ -33,8 +33,8 @@ namespace MVC
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    //Configuration.GetConnectionString("DefaultConnection")));
-            Configuration.GetConnectionString("AzureConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")));
+            //Configuration.GetConnectionString("AzureConnection")));
 
             services.AddScoped<IRepository<Movie>, SQLRepository<Movie>>();
             services.AddScoped<IRepository<MovieList>, SQLRepository<MovieList>>();

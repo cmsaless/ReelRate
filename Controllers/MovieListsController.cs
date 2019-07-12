@@ -68,9 +68,14 @@ namespace MVC.Controllers
         public ActionResult ViewList(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            List<(int, Movie)> rankedMovies = GetRankedMoviesOfList(list_id);
+            if (movieList.ID != _loggedInUserID)
+            {
+                return RedirectToPage("~/Views/Shared/Error.cshtml");
+            }
 
+            List<(int, Movie)> rankedMovies = GetRankedMoviesOfList(list_id);
             MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
+
             return View(viewModel);
         }
 
@@ -78,22 +83,19 @@ namespace MVC.Controllers
         public ActionResult Search(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-
-            ActionResult res;
+            if (movieList.ID != _loggedInUserID)
+            {
+                return RedirectToPage("~/Views/Shared/Error.cshtml");
+            }
 
             if (movieList.Size == 100)
             {
-                res = RedirectToAction("View", new { list_id });
+                return RedirectToAction("View", new { list_id });
             } else
             {
                 MovieListViewModel viewModel = new MovieListViewModel(movieList, new List<(int, Movie)>());
-                res = View(viewModel);
-                //ViewBag.ListID = list_id;
-                //List<Movie> allMovies = _allMoviesContext.Collection().ToList();
-                //res = View(allMovies);
+                return View(viewModel);
             }
-
-            return res;
         }
 
         [HttpPost, ActionName("Add")]
@@ -101,6 +103,11 @@ namespace MVC.Controllers
         public void AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
+            if (movieList.ID != _loggedInUserID)
+            {
+                return;
+            }
+
             Movie findMovie = _allMoviesContext.Collection().FirstOrDefault(i => i.TMDB_ID == movie.TMDB_ID);
 
             if (findMovie == null)
@@ -125,8 +132,6 @@ namespace MVC.Controllers
                 _listContext.Update(movieList);
                 _listContext.Commit();
             }
-
-            //return RedirectToAction("View", new { list_id });
         }
 
         [HttpPost, ActionName("Remove")]
@@ -134,6 +139,11 @@ namespace MVC.Controllers
         public ActionResult RemoveMovie(string list_id, string movie_id)
         {
             MovieList movieList = _listContext.Find(list_id);
+            if (movieList.ID != _loggedInUserID)
+            {
+                return RedirectToPage("~/Views/Shared/Error.cshtml");
+            }
+
             MovieListItem listItem = _listItemsContext.Collection().FirstOrDefault(i => (i.ListID == list_id && i.MovieID == movie_id));
 
             _listItemsContext.Delete(listItem.ID);
@@ -150,22 +160,27 @@ namespace MVC.Controllers
         public ActionResult Delete(string list_id)
         {
             MovieList movieList = _listContext.Find(list_id);
-            List<(int, Movie)> rankedMovies = GetRankedMoviesOfList(list_id);
-
-            if (movieList.AuthorID == _loggedInUserID)
-            {
-                MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
-                return View(viewModel);
-            } else
+            if (movieList.ID != _loggedInUserID)
             {
                 return RedirectToPage("~/Views/Shared/Error.cshtml");
             }
+
+            List<(int, Movie)> rankedMovies = GetRankedMoviesOfList(list_id);
+
+            MovieListViewModel viewModel = new MovieListViewModel(movieList, rankedMovies);
+            return View(viewModel);
         }
 
         [HttpPost, ActionName("Delete")]
         [Authorize]
         public ActionResult ConfirmDelete(string list_id)
         {
+            MovieList movieList = _listContext.Find(list_id);
+            if (movieList.ID != _loggedInUserID)
+            {
+                return RedirectToPage("~/Views/Shared/Error.cshtml");
+            }
+
             List<string> listItemIDs = (from item in _listItemsContext.Collection()
                                         where item.ListID == list_id
                                         select item.ID).ToList();
@@ -187,6 +202,10 @@ namespace MVC.Controllers
         public void SaveList(string list_id, string movie_id, string new_rank)
         {
             MovieList movieList = _listContext.Find(list_id);
+            if (movieList.ID != _loggedInUserID)
+            {
+                return;
+            }
 
             MovieListItem listItem = (from item in _listItemsContext.Collection()
                                       where item.ListID == list_id && item.MovieID == movie_id

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVC.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,8 @@ namespace MVC.Migrations
                 {
                     ID = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Size = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,8 +67,9 @@ namespace MVC.Migrations
                 {
                     ID = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    MovieID = table.Column<string>(nullable: true),
-                    ListID = table.Column<string>(nullable: true)
+                    MovieID = table.Column<string>(nullable: false),
+                    ListID = table.Column<string>(nullable: false),
+                    Rank = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +83,8 @@ namespace MVC.Migrations
                     ID = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     TMDB_ID = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     Year = table.Column<string>(nullable: true),
                     Poster = table.Column<string>(nullable: true)
                 },

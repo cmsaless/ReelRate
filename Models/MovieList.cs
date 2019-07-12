@@ -7,7 +7,7 @@ namespace MVC.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Size = 0;
+        public int Size { get; set; }
 
         public MovieList()
         {

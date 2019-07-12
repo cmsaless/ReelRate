@@ -79,7 +79,7 @@ function changeButton(button) {
 function cleanString(string_) {
     console.log("unclean: " + string_)
     var retval = string_.replace(/"/g, '\\"')
-    retval = retval.replace(/'/g, "\\'")
+    retval = retval.replace(/'/g, "\'")
     //var retval = string_.replace(/\"/g, '"');
     //retval = retval.replace(/"/g, '\"')
     //console.log("cleaned: " + retval)

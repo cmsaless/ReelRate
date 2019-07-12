@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190709190505_ChangesToListItemModel")]
-    partial class ChangesToListItemModel
+    [Migration("20190712005545_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -193,11 +193,14 @@ namespace MVC.Migrations
 
                     b.Property<DateTimeOffset>("CreatedAt");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Poster");
 
                     b.Property<int>("TMDB_ID");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("Year");
 
@@ -230,9 +233,11 @@ namespace MVC.Migrations
 
                     b.Property<DateTimeOffset>("CreatedAt");
 
-                    b.Property<string>("ListID");
+                    b.Property<string>("ListID")
+                        .IsRequired();
 
-                    b.Property<string>("MovieID");
+                    b.Property<string>("MovieID")
+                        .IsRequired();
 
                     b.Property<int>("Rank");
 

@@ -42,6 +42,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Create(MovieList movieList)
         {
+            movieList.Size = 0;
             _listContext.Insert(movieList);
             _listContext.Commit();
 
@@ -83,29 +84,28 @@ namespace MVC.Controllers
         public ActionResult AddMovie(string list_id, Movie movie)
         {
             MovieList movieList = _listContext.Find(list_id);
-            Movie findMovie = _allMoviesContext.Find(movie.ID);
+            Movie findMovie = _allMoviesContext.Collection().FirstOrDefault(i => i.TMDB_ID == movie.TMDB_ID);
 
             if (findMovie == null)
             {
                 _allMoviesContext.Insert(movie);
-            } else
-            {
-                _allMoviesContext.Update(movie);
+                _allMoviesContext.Commit();
             }
-            _allMoviesContext.Commit();
+            movie = findMovie;
 
-            string desc = movie.Description;
+            if (_listItemsContext.Collection().FirstOrDefault(i => i.ListID==list_id && i.MovieID==movie.ID) == null)
+            {
+                MovieListItem listItem = new MovieListItem(list_id, movie.ID);
 
-            MovieListItem listItem = new MovieListItem(list_id, movie.ID);
+                movieList.IncrementSize();
+                listItem.Rank = movieList.Size;
 
-            movieList.IncrementSize();
-            listItem.Rank = movieList.Size;
+                _listItemsContext.Insert(listItem);
+                _listItemsContext.Commit();
 
-            _listItemsContext.Insert(listItem);
-            _listItemsContext.Commit();
-
-            _listContext.Update(movieList);
-            _listContext.Commit();
+                _listContext.Update(movieList);
+                _listContext.Commit();
+            }
 
             return RedirectToAction("View", new { list_id });
         }

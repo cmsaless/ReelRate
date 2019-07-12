@@ -217,6 +217,8 @@ namespace MVC.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int>("Size");
+
                     b.HasKey("ID");
 
                     b.ToTable("MovieList");

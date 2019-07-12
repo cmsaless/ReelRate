@@ -28,6 +28,9 @@
                             <div class="movie-item">
                                 @using (Html.BeginForm("Remove", "MovieLists", FormMethod.Post, new { encType = "multipart/form-data" }))
                                 {
+                                    // this all needs to be fixed. use an ajax.post().
+                                    // order of operation: click remove button -> delete html elem -> reOrder numbers in list -> auto save/updateRanks -> refresh(?)
+                                    // OR: click remove button -> post the remove -> controller updates all ranks -> refresh (easier but not as nice)
                                     <span class="header-span rank">@rank. @movie.Title</span>
                                     <input type="hidden" name="list_id" class="list-id" value="@Model.ModelList.ID">
                                     <input type="hidden" name="movie_id" class="movie-id" value="@movie.ID">

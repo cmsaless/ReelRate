@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190712005545_Initial")]
-    partial class Initial
+    [Migration("20190712023857_UpdateToAzure")]
+    partial class UpdateToAzure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
